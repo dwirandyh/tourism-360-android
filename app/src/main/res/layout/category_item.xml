@@ -8,6 +8,10 @@
         <variable
             name="category"
             type="com.dwirandyh.wisatalampung.model.Category" />
+
+        <variable
+            name="binding"
+            type="com.dwirandyh.wisatalampung.model.CustomBindingAdapter" />
     </data>
 
     <LinearLayout

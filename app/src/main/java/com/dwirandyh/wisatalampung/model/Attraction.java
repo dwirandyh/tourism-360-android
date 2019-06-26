@@ -51,14 +51,6 @@ public class Attraction extends BaseObservable implements Parcelable {
     @Expose
     private String updatedAt;
 
-    @BindingAdapter({"thumbnailPath"})
-    public static void thumbnailPath(ImageView imageView, String imageUrl) {
-        String imagePath = Constant.BASE_IMAGE_URL + imageUrl;
-        Glide.with(imageView.getContext())
-                .load(imagePath)
-                .into(imageView);
-    }
-
     public final static Parcelable.Creator<Attraction> CREATOR = new Creator<Attraction>() {
 
 

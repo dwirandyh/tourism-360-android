@@ -2,137 +2,125 @@ package com.dwirandyh.wisatalampung.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageView;
-
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
-import androidx.databinding.BindingAdapter;
-
-import com.bumptech.glide.Glide;
-import com.dwirandyh.wisatalampung.BR;
-import com.dwirandyh.wisatalampung.R;
-import com.dwirandyh.wisatalampung.utils.Constant;
+import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-public class Category extends BaseObservable implements Parcelable {
+public class Gallery implements Parcelable {
 
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("name")
+    @SerializedName("title")
     @Expose
-    private String name;
-    @SerializedName("description")
-    @Expose
-    private String description;
+    private String title;
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
+    @SerializedName("touristAttractionId")
+    @Expose
+    private Integer touristAttractionId;
     @SerializedName("createdAt")
     @Expose
     private String createdAt;
     @SerializedName("updatedAt")
     @Expose
     private String updatedAt;
+    @SerializedName("attraction")
+    @Expose
+    private Attraction attraction;
+    public final static Parcelable.Creator<Gallery> CREATOR = new Creator<Gallery>() {
 
 
-
-    public final static Parcelable.Creator<Category> CREATOR = new Creator<Category>() {
         @SuppressWarnings({
                 "unchecked"
         })
-        public Category createFromParcel(Parcel in) {
-            return new Category(in);
+        public Gallery createFromParcel(Parcel in) {
+            return new Gallery(in);
         }
 
-        public Category[] newArray(int size) {
-            return (new Category[size]);
+        public Gallery[] newArray(int size) {
+            return (new Gallery[size]);
         }
 
     };
 
-    protected Category(Parcel in) {
+    protected Gallery(Parcel in) {
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.name = ((String) in.readValue((String.class.getClassLoader())));
-        this.description = ((String) in.readValue((String.class.getClassLoader())));
+        this.title = ((String) in.readValue((String.class.getClassLoader())));
         this.thumbnail = ((String) in.readValue((String.class.getClassLoader())));
+        this.touristAttractionId = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.createdAt = ((String) in.readValue((String.class.getClassLoader())));
         this.updatedAt = ((String) in.readValue((String.class.getClassLoader())));
+        this.attraction = ((Attraction) in.readValue((Attraction.class.getClassLoader())));
     }
 
-    public Category() {
+    public Gallery() {
     }
 
-    @Bindable
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-        notifyPropertyChanged(BR.id);
     }
 
-    @Bindable
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
-        notifyPropertyChanged(BR.name);
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    @Bindable
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-        notifyPropertyChanged(BR.description);
-    }
-
-    @Bindable
     public String getThumbnail() {
         return thumbnail;
     }
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-        notifyPropertyChanged(BR.thumbnail);
     }
 
-    @Bindable
+    public Integer getTouristAttractionId() {
+        return touristAttractionId;
+    }
+
+    public void setTouristAttractionId(Integer touristAttractionId) {
+        this.touristAttractionId = touristAttractionId;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-        notifyPropertyChanged(BR.createdAt);
     }
 
-    @Bindable
     public String getUpdatedAt() {
         return updatedAt;
     }
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
-        notifyPropertyChanged(BR.updatedAt);
     }
 
+    public Attraction getAttraction() {
+        return attraction;
+    }
 
+    public void setAttraction(Attraction attraction) {
+        this.attraction = attraction;
+    }
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
-        dest.writeValue(name);
-        dest.writeValue(description);
+        dest.writeValue(title);
         dest.writeValue(thumbnail);
+        dest.writeValue(touristAttractionId);
         dest.writeValue(createdAt);
         dest.writeValue(updatedAt);
+        dest.writeValue(attraction);
     }
 
     public int describeContents() {

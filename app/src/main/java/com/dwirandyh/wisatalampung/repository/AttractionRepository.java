@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dwirandyh.wisatalampung.model.Attraction;
+import com.dwirandyh.wisatalampung.model.Gallery;
 import com.dwirandyh.wisatalampung.service.AttractionDataService;
 import com.dwirandyh.wisatalampung.service.RetrofitInstance;
 
@@ -15,16 +16,42 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AttractionRepository {
     private static String TAG = "AttractionRepository";
 
     private ArrayList<Attraction> attractions = new ArrayList<>();
     private MutableLiveData<List<Attraction>> mutableAttractions = new MutableLiveData<>();
+    private MutableLiveData<Attraction> mutableAttraction = new MutableLiveData<>();
+    private MutableLiveData<List<Gallery>> mutableGalleries = new MutableLiveData<>();
+
     private Application application;
 
-    public AttractionRepository(Application application){
+    public AttractionRepository(Application application) {
         this.application = application;
+    }
+
+    public MutableLiveData<List<Gallery>> getGalleries(int id){
+        AttractionDataService attractionDataService = RetrofitInstance.getAttractionService();
+        Call<List<Gallery>> call = attractionDataService.getGallery(id);
+
+        call.enqueue(new Callback<List<Gallery>>() {
+            @Override
+            public void onResponse(Call<List<Gallery>> call, Response<List<Gallery>> response) {
+                List<Gallery> res = response.body();
+                if (res != null){
+                    mutableGalleries.setValue(res);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Gallery>> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
+
+        return mutableGalleries;
     }
 
     public MutableLiveData<List<Attraction>> getPopularAttraction() {
@@ -35,7 +62,7 @@ public class AttractionRepository {
             @Override
             public void onResponse(Call<List<Attraction>> call, Response<List<Attraction>> response) {
                 List<Attraction> res = response.body();
-                if (res != null){
+                if (res != null) {
                     attractions = (ArrayList<Attraction>) res;
                     mutableAttractions.setValue(attractions);
                 }
@@ -49,4 +76,32 @@ public class AttractionRepository {
 
         return mutableAttractions;
     }
+
+    public MutableLiveData<Attraction> getMutableAttraction() {
+        return mutableAttraction;
+    }
+
+    public MutableLiveData<Attraction> getAttraction(int id) {
+        AttractionDataService attractionDataService = RetrofitInstance.getAttractionService();
+        Call<Attraction> call = attractionDataService.getAttractionDetail(id);
+
+        call.enqueue(new Callback<Attraction>() {
+            @Override
+            public void onResponse(Call<Attraction> call, Response<Attraction> response) {
+                Attraction res = response.body();
+                if (res != null) {
+                    mutableAttraction.setValue(res);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Attraction> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
+
+        return mutableAttraction;
+    }
+
+
 }

@@ -6,15 +6,15 @@
     <data>
 
         <variable
-            name="attraction"
-            type="com.dwirandyh.wisatalampung.model.Attraction" />
+            name="gallery"
+            type="com.dwirandyh.wisatalampung.model.Gallery" />
         <variable
             name="binding"
             type="com.dwirandyh.wisatalampung.model.CustomBindingAdapter" />
     </data>
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="vertical">
 
@@ -22,8 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            android:layout_margin="4dp"
             >
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +45,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        bind:thumbnailPath="@{attraction.thumbnail}" />
+                        bind:thumbnailPath="@{gallery.thumbnail}" />
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -69,13 +70,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
-                        android:text="@{attraction.name, default=`Everest Mountain`}"
+                        android:text="@{gallery.title, default=`Entry Gate`}"
                         android:textAlignment="textStart" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{attraction.view + ` views`, default=`0 views`}"
+                        android:text="@{gallery.attraction.name, default=`Attraction`}"
                         android:textColor="@color/colorSecondaryTextImage" />
                 </LinearLayout>
 
