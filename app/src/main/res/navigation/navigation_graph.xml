@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.dwirandyh.wisatalampung.view.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_attractionDetail"
+            app:destination="@id/attractionDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/whistListFragment"
+        android:name="com.dwirandyh.wisatalampung.view.main.WishListFragment"
+        android:label="fragment_whist_list"
+        tools:layout="@layout/wishlist_fragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.dwirandyh.wisatalampung.view.main.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/map_fragment" />
+    <fragment
+        android:id="@+id/attractionDetail"
+        android:name="com.dwirandyh.wisatalampung.view.AttractionDetailFragment"
+        android:label="fragment_attraction_detail"
+        tools:layout="@layout/fragment_attraction_detail" />
+</navigation>
