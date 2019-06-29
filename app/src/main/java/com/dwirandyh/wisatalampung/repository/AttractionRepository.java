@@ -77,6 +77,29 @@ public class AttractionRepository {
         return mutableAttractions;
     }
 
+    public MutableLiveData<List<Attraction>> getNearestAtrractions() {
+        AttractionDataService attractionDataService = RetrofitInstance.getAttractionService();
+        Call<List<Attraction>> call = attractionDataService.getPopularAttraction();
+
+        call.enqueue(new Callback<List<Attraction>>() {
+            @Override
+            public void onResponse(Call<List<Attraction>> call, Response<List<Attraction>> response) {
+                List<Attraction> res = response.body();
+                if (res != null) {
+                    attractions = (ArrayList<Attraction>) res;
+                    mutableAttractions.setValue(attractions);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Attraction>> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
+
+        return mutableAttractions;
+    }
+
     public MutableLiveData<Attraction> getMutableAttraction() {
         return mutableAttraction;
     }

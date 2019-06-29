@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -53,7 +54,7 @@ public class MainFragment extends Fragment {
 
         mainFragmentBinding = DataBindingUtil.inflate(
                 inflater, R.layout.main_fragment, container, false);
-        return inflater.inflate(R.layout.main_fragment, container, false);
+        return mainFragmentBinding.getRoot();
     }
 
     @Override
@@ -126,5 +127,10 @@ public class MainFragment extends Fragment {
                 showOnPopularRecyclerView();
             }
         });
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }

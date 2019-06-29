@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorBackground">#FFF</color>
+    <color name="colorBackground">#F7F5F5</color>
     <color name="colorButtonPrimary">#0C0C0C</color>
     <color name="colorButtonPrimaryText">#FFFFFF</color>
     <color name="colorPrimaryText">#1E1E1E</color>
     <color name="colorSecondaryText">#A7A7A7</color>
 
     <color name="colorPrimaryTextImage">#F7FCFD</color>
-    <color name="colorSecondaryTextImage">#A5B6C0</color>
+    <color name="colorSecondaryTextImage">#C7C6C6</color>
 
     <color name="colorMore">#C9C3BA</color>
 

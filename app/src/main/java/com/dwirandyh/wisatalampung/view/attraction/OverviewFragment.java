@@ -53,7 +53,6 @@ public class OverviewFragment extends Fragment {
         attractionDetailViewModel.getAttractionMutableLiveData().observe(this, new Observer<Attraction>() {
             @Override
             public void onChanged(Attraction attraction) {
-                String description = attraction.getDescription();
                 attractionOverviewFragmentBinding.setAttraction(attraction);
             }
         });

@@ -1,32 +1,34 @@
 package com.dwirandyh.wisatalampung.view.attraction;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.dwirandyh.wisatalampung.R;
-import com.dwirandyh.wisatalampung.databinding.AttractionOverviewFragmentBinding;
 import com.dwirandyh.wisatalampung.model.Attraction;
 import com.dwirandyh.wisatalampung.viewmodel.AttractionDetailViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class AttractionMapFragment extends Fragment implements OnMapReadyCallback {
 
+    AttractionDetailViewModel attractionDetailViewModel;
 
+    GoogleMap mMap;
+    LatLng attractionLatlng = new LatLng(-5.3773611, 105.2497009);
 
     @Nullable
     @Override
@@ -47,22 +49,38 @@ public class AttractionMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        attractionDetailViewModel = ViewModelProviders.of(getActivity()).get(AttractionDetailViewModel.class);
+        attractionDetailViewModel.getAttractionMutableLiveData().observe(this, new Observer<Attraction>() {
+            @Override
+            public void onChanged(Attraction attraction) {
+                if (TextUtils.isEmpty(attraction.getLatitude()) && TextUtils.isEmpty(attraction.getLongitude())) {
+                    attractionLatlng = new LatLng(Double.valueOf(attraction.getLatitude()), Double.valueOf(attraction.getLongitude()));
+
+                    addMarker(attraction.getName());
+                }
+            }
+        });
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.getUiSettings().setScrollGesturesEnabled(false);
-        googleMap.getUiSettings().setTiltGesturesEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().setCompassEnabled(true);
-
-        LatLng attractionLatlng = new LatLng(37.4219999, -122.0862462);
-
-        googleMap.addMarker(new MarkerOptions()
-                        .position(attractionLatlng)
-                        .title("New Marker"));
+        mMap = googleMap;
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.getUiSettings().setTiltGesturesEnabled(false);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
 
 
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(attractionLatlng, 5f));
+        addMarker("Position");
+    }
+
+    private void addMarker(String title) {
+
+        mMap.addMarker(new MarkerOptions()
+                .position(attractionLatlng)
+                .title(title));
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(attractionLatlng, 15f)); // 15f is zoom
     }
 }
