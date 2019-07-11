@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface AttractionDataService {
 
@@ -19,4 +20,7 @@ public interface AttractionDataService {
 
     @GET("attraction/{id}/gallery")
     Call<List<Gallery>> getGallery(@Path("id") int id);
+
+    @GET("attraction/search")
+    Call<List<Attraction>> searchAttraction(@Query("q") String q);
 }

@@ -2,13 +2,6 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="clickHandler"
-            type="com.dwirandyh.wisatalampung.view.main.WishListFragment.WishListClickHandler" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/frameLayout5"
         android:layout_width="match_parent"
@@ -27,36 +20,24 @@
 
         </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:paddingTop="20dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:background="@android:color/transparent"
-                android:onClick="@{clickHandler::onBackButtonClicked}"
-                android:src="?attr/homeAsUpIndicator"
-                android:tint="@color/colorWhite" />
-
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/TextBanner"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="?actionBarSize"
-                android:text="My Wishlist"
-                android:textAlignment="center" />
-        </LinearLayout>
+                android:layout_height="?attr/actionBarSize" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:id="@+id/layoutNotFound"
@@ -67,8 +48,10 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.614">
 
             <ImageView
                 android:layout_width="200dp"
@@ -101,7 +84,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.141" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

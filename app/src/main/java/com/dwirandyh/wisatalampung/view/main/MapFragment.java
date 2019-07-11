@@ -1,6 +1,7 @@
 package com.dwirandyh.wisatalampung.view.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -26,6 +27,8 @@ import com.dwirandyh.wisatalampung.adapter.CategoryMapAdapter;
 import com.dwirandyh.wisatalampung.databinding.MapFragmentBinding;
 import com.dwirandyh.wisatalampung.model.Attraction;
 import com.dwirandyh.wisatalampung.model.Category;
+import com.dwirandyh.wisatalampung.view.attraction.AttractionDetailActivity;
+import com.dwirandyh.wisatalampung.view.category.CategoryActivity;
 import com.dwirandyh.wisatalampung.viewmodel.MainViewModel;
 import com.dwirandyh.wisatalampung.viewmodel.MapViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -94,7 +97,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         categoryAdapter.setOnItemClickListener(new CategoryMapAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Category category) {
-                Toast.makeText(getContext(), category.getName() + " Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), CategoryActivity.class);
+                intent.putExtra("category", category);
+                startActivity(intent);
             }
         });
 
@@ -122,7 +127,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         attractionMapAdapter.setOnItemClickListener(new AttractionMapAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Attraction attraction) {
-                Toast.makeText(getContext(), attraction.getName() + " clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), AttractionDetailActivity.class);
+                intent.putExtra("attraction", attraction);
+                startActivity(intent);
             }
         });
 

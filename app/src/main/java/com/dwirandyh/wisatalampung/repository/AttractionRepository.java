@@ -25,6 +25,7 @@ public class AttractionRepository {
     private MutableLiveData<List<Attraction>> mutableAttractions = new MutableLiveData<>();
     private MutableLiveData<Attraction> mutableAttraction = new MutableLiveData<>();
     private MutableLiveData<List<Gallery>> mutableGalleries = new MutableLiveData<>();
+    private MutableLiveData<List<Attraction>> mutableSearchAttractions = new MutableLiveData<>();
 
     private Application application;
 
@@ -98,6 +99,30 @@ public class AttractionRepository {
         });
 
         return mutableAttractions;
+    }
+
+    public MutableLiveData<List<Attraction>> searchAttractions(String q){
+        mutableSearchAttractions = new MutableLiveData<>();
+        AttractionDataService attractionDataService = RetrofitInstance.getAttractionService();
+        Call<List<Attraction>> call = attractionDataService.searchAttraction(q);
+
+        call.enqueue(new Callback<List<Attraction>>() {
+            @Override
+            public void onResponse(Call<List<Attraction>> call, Response<List<Attraction>> response) {
+                List<Attraction> res = response.body();
+                if (res != null){
+                    attractions = (ArrayList<Attraction>) res;
+                    mutableSearchAttractions.setValue(attractions);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Attraction>> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
+
+        return mutableSearchAttractions;
     }
 
     public MutableLiveData<Attraction> getMutableAttraction() {

@@ -4,6 +4,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import com.dwirandyh.wisatalampung.databinding.MainFragmentBinding;
 import com.dwirandyh.wisatalampung.model.Attraction;
 import com.dwirandyh.wisatalampung.model.Category;
 import com.dwirandyh.wisatalampung.view.attraction.AttractionDetailActivity;
+import com.dwirandyh.wisatalampung.view.category.CategoryActivity;
+import com.dwirandyh.wisatalampung.view.search.SearchActivity;
 import com.dwirandyh.wisatalampung.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
@@ -37,11 +40,10 @@ public class MainFragment extends Fragment {
     private ArrayList<Category> categories;
     private ArrayList<Attraction> attractions;
     private RecyclerView recyclerView;
-    private CategoryAdapter categoryAdapter;
-    private AttractionAdapter attractionAdapter;
 
     private MainViewModel mViewModel;
     private MainFragmentBinding mainFragmentBinding;
+    private MainFragmentClickHanlders mainFragmentClickHanlders;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -54,6 +56,11 @@ public class MainFragment extends Fragment {
 
         mainFragmentBinding = DataBindingUtil.inflate(
                 inflater, R.layout.main_fragment, container, false);
+
+        mainFragmentClickHanlders = new MainFragmentClickHanlders(getContext());
+        mainFragmentBinding.setClickHandler(mainFragmentClickHanlders);
+
+
         return mainFragmentBinding.getRoot();
     }
 
@@ -76,12 +83,14 @@ public class MainFragment extends Fragment {
     private void showOnCategoryRecyclerView() {
         recyclerView = getView().findViewById(R.id.rvCategory);
 
-        categoryAdapter = new CategoryAdapter();
+        CategoryAdapter categoryAdapter = new CategoryAdapter();
         categoryAdapter.setCategories(categories);
         categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Category category) {
-                Toast.makeText(getContext(), category.getName() + " Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), CategoryActivity.class);
+                intent.putExtra("category", category);
+                startActivity(intent);
             }
         });
 
@@ -93,7 +102,7 @@ public class MainFragment extends Fragment {
     private void showOnPopularRecyclerView() {
         recyclerView = getView().findViewById(R.id.rvPopular);
 
-        attractionAdapter = new AttractionAdapter();
+        AttractionAdapter attractionAdapter = new AttractionAdapter();
         attractionAdapter.setAttractions(attractions);
         attractionAdapter.setOnItemClickListener(new AttractionAdapter.OnItemClickListener() {
             @Override
@@ -132,5 +141,18 @@ public class MainFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public class MainFragmentClickHanlders {
+        Context context;
+
+        public MainFragmentClickHanlders(Context context){
+            this.context = context;
+        }
+
+        public void onTextSearchClicked(View view){
+            Intent intent = new Intent(context, SearchActivity.class);
+            startActivity(intent);
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.dwirandyh.wisatalampung.model.Attraction;
 import com.dwirandyh.wisatalampung.model.Category;
 import com.dwirandyh.wisatalampung.service.CategoryDataService;
 import com.dwirandyh.wisatalampung.service.RetrofitInstance;
@@ -17,8 +18,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CategoryRepository {
-    private ArrayList<Category> categories = new ArrayList<>();
+
     private MutableLiveData<List<Category>> mutableCategories = new MutableLiveData<>();
+    private MutableLiveData<List<Attraction>> mutableAttractions = new MutableLiveData<>();
+
     private Application application;
 
 
@@ -35,7 +38,7 @@ public class CategoryRepository {
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 List<Category> res = response.body();
                 if (res != null) {
-                    categories = (ArrayList<Category>) response.body();
+                    ArrayList<Category> categories = (ArrayList<Category>) response.body();
                     mutableCategories.setValue(categories);
                 }
             }
@@ -47,5 +50,27 @@ public class CategoryRepository {
         });
 
         return mutableCategories;
+    }
+
+    public MutableLiveData<List<Attraction>> getMutableAttractionsByCategory(int categoryId){
+        CategoryDataService categoryDataService = RetrofitInstance.getCategoryService();
+        Call<List<Attraction>> call = categoryDataService.getAttractions(categoryId);
+
+        call.enqueue(new Callback<List<Attraction>>() {
+            @Override
+            public void onResponse(Call<List<Attraction>> call, Response<List<Attraction>> response) {
+                List<Attraction> res = response.body();
+                if (res != null){
+                    ArrayList<Attraction> attractions = (ArrayList<Attraction>) res;
+                    mutableAttractions.setValue(attractions);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Attraction>> call, Throwable t) {
+
+            }
+        });
+        return mutableAttractions;
     }
 }

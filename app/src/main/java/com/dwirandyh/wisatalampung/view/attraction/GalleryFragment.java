@@ -25,6 +25,7 @@ import com.dwirandyh.wisatalampung.databinding.AttractionGalleryFragmentBinding;
 import com.dwirandyh.wisatalampung.databinding.AttractionOverviewFragmentBinding;
 import com.dwirandyh.wisatalampung.model.Attraction;
 import com.dwirandyh.wisatalampung.model.Gallery;
+import com.dwirandyh.wisatalampung.view.vr.VRActivity;
 import com.dwirandyh.wisatalampung.viewmodel.AttractionDetailViewModel;
 
 import java.util.ArrayList;
@@ -88,7 +89,9 @@ public class GalleryFragment extends Fragment {
         galleryAdapter.setOnItemClickListener(new GalleryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Gallery gallery) {
-                Toast.makeText(getActivity(), "Gallery " + gallery.getTitle() + " is clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), VRActivity.class);
+                intent.putExtra("galleryFileName", gallery.getThumbnail());
+                startActivity(intent);
             }
         });
 
