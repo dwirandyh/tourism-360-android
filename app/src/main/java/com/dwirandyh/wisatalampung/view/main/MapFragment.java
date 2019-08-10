@@ -66,6 +66,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        rvAttractions = mapFragmentBinding.getRoot().findViewById(R.id.rvAttraction);
+        rvCategory = mapFragmentBinding.getRoot().findViewById(R.id.rvNearestAttraction);
+
         return mapFragmentBinding.getRoot();
     }
 
@@ -90,7 +93,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void showOnCategoryRecyclerView() {
-        rvCategory = mapFragmentBinding.rvCategory;
+//        rvCategory = mapFragmentBinding.rvCategory;
 
         CategoryMapAdapter categoryAdapter = new CategoryMapAdapter();
         categoryAdapter.setCategories(categories);
@@ -120,7 +123,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void showOnAttractionRecyclerView() {
-        rvAttractions = mapFragmentBinding.rvNearestAttraction;
+//        rvAttractions = mapFragmentBinding.rvNearestAttraction;
 
         AttractionMapAdapter attractionMapAdapter = new AttractionMapAdapter();
         attractionMapAdapter.setAttractions(attractions);
@@ -134,7 +137,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
 
         rvAttractions.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvAttractions.setItemAnimator(new DefaultItemAnimator());
         rvAttractions.addItemDecoration(new DividerItemDecoration(rvAttractions.getContext(), DividerItemDecoration.VERTICAL));
         rvAttractions.setAdapter(attractionMapAdapter);
     }
