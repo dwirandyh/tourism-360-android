@@ -29,6 +29,7 @@ public class AttractionMapFragment extends Fragment implements OnMapReadyCallbac
 
     GoogleMap mMap;
     LatLng attractionLatlng = new LatLng(-5.3773611, 105.2497009);
+    String attractionName = "";
 
     @Nullable
     @Override
@@ -54,10 +55,10 @@ public class AttractionMapFragment extends Fragment implements OnMapReadyCallbac
         attractionDetailViewModel.getAttractionMutableLiveData().observe(this, new Observer<Attraction>() {
             @Override
             public void onChanged(Attraction attraction) {
-                if (TextUtils.isEmpty(attraction.getLatitude()) && TextUtils.isEmpty(attraction.getLongitude())) {
+                if (!TextUtils.isEmpty(attraction.getLatitude()) && !TextUtils.isEmpty(attraction.getLongitude())) {
                     attractionLatlng = new LatLng(Double.valueOf(attraction.getLatitude()), Double.valueOf(attraction.getLongitude()));
-
-                    addMarker(attraction.getName());
+                    attractionName = attraction.getName();
+                    addMarker();
                 }
             }
         });
@@ -72,15 +73,16 @@ public class AttractionMapFragment extends Fragment implements OnMapReadyCallbac
         mMap.getUiSettings().setCompassEnabled(true);
 
 
-        addMarker("Position");
+        addMarker();
     }
 
-    private void addMarker(String title) {
+    private void addMarker() {
+        if (!TextUtils.isEmpty(attractionName) && mMap != null){
+            mMap.addMarker(new MarkerOptions()
+                    .position(attractionLatlng)
+                    .title(attractionName));
 
-        mMap.addMarker(new MarkerOptions()
-                .position(attractionLatlng)
-                .title(title));
-
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(attractionLatlng, 15f)); // 15f is zoom
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(attractionLatlng, 15f)); // 15f is zoom
+        }
     }
 }
