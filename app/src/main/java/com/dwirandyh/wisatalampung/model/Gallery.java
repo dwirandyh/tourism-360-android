@@ -16,6 +16,18 @@ public class Gallery implements Parcelable {
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
+    @SerializedName("latitude")
+    @Expose
+    private String latitude;
+    @SerializedName("longitude")
+    @Expose
+    private String longitude;
+    @SerializedName("directionFile")
+    @Expose
+    private String directionFile;
+    @SerializedName("overviewFile")
+    @Expose
+    private String overviewFile;
     @SerializedName("touristAttractionId")
     @Expose
     private Integer touristAttractionId;
@@ -28,6 +40,9 @@ public class Gallery implements Parcelable {
     @SerializedName("attraction")
     @Expose
     private Attraction attraction;
+
+
+
     public final static Parcelable.Creator<Gallery> CREATOR = new Creator<Gallery>() {
 
 
@@ -111,6 +126,38 @@ public class Gallery implements Parcelable {
 
     public void setAttraction(Attraction attraction) {
         this.attraction = attraction;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getDirectionFile() {
+        return directionFile;
+    }
+
+    public void setDirectionFile(String directionFile) {
+        this.directionFile = directionFile;
+    }
+
+    public String getOverviewFile() {
+        return overviewFile;
+    }
+
+    public void setOverviewFile(String overviewFile) {
+        this.overviewFile = overviewFile;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

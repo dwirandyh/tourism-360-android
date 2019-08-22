@@ -15,17 +15,16 @@
     </data>
 
     <LinearLayout
-        android:layout_width="220dp"
-        android:layout_height="100dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="?android:attr/selectableItemBackground"
         >
 
         <androidx.cardview.widget.CardView
-            android:layout_width="220dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginEnd="8dp"
+            android:layout_margin="8dp"
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">

@@ -29,6 +29,7 @@ import com.dwirandyh.wisatalampung.model.Attraction;
 import com.dwirandyh.wisatalampung.model.Category;
 import com.dwirandyh.wisatalampung.view.attraction.AttractionDetailActivity;
 import com.dwirandyh.wisatalampung.view.category.CategoryActivity;
+import com.dwirandyh.wisatalampung.view.category.CategoryListActivity;
 import com.dwirandyh.wisatalampung.view.search.SearchActivity;
 import com.dwirandyh.wisatalampung.viewmodel.MainViewModel;
 
@@ -37,7 +38,6 @@ import java.util.List;
 
 public class MainFragment extends Fragment {
 
-    private ArrayList<Category> categories;
     private ArrayList<Attraction> attractions;
     private RecyclerView recyclerView;
 
@@ -75,29 +75,9 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-        getCategories();
         getPopularAttractions();
     }
 
-    private void showOnCategoryRecyclerView() {
-        recyclerView = getView().findViewById(R.id.rvCategory);
-
-        CategoryAdapter categoryAdapter = new CategoryAdapter();
-        categoryAdapter.setCategories(categories);
-        categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Category category) {
-                Intent intent = new Intent(getActivity(), CategoryActivity.class);
-                intent.putExtra("category", category);
-                startActivity(intent);
-            }
-        });
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(categoryAdapter);
-    }
 
     private void showOnPopularRecyclerView() {
         recyclerView = getView().findViewById(R.id.rvPopular);
@@ -118,15 +98,6 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(attractionAdapter);
     }
 
-    private void getCategories() {
-        mViewModel.getCategories().observe(this, new Observer<List<Category>>() {
-            @Override
-            public void onChanged(List<Category> categoriesLiveData) {
-                categories = (ArrayList<Category>) categoriesLiveData;
-                showOnCategoryRecyclerView();
-            }
-        });
-    }
 
     private void getPopularAttractions(){
         mViewModel.getPopularAttraction().observe(this, new Observer<List<Attraction>>() {
@@ -138,11 +109,6 @@ public class MainFragment extends Fragment {
         });
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
     public class MainFragmentClickHanlders {
         Context context;
 
@@ -152,6 +118,11 @@ public class MainFragment extends Fragment {
 
         public void onTextSearchClicked(View view){
             Intent intent = new Intent(context, SearchActivity.class);
+            startActivity(intent);
+        }
+
+        public void onButtonCategoryClicked(View view){
+            Intent intent = new Intent(context, CategoryListActivity.class);
             startActivity(intent);
         }
     }

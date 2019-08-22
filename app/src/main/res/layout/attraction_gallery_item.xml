@@ -8,6 +8,7 @@
         <variable
             name="gallery"
             type="com.dwirandyh.wisatalampung.model.Gallery" />
+
         <variable
             name="binding"
             type="com.dwirandyh.wisatalampung.model.CustomBindingAdapter" />
@@ -15,17 +16,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="4dp"
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="4dp"
-            app:cardElevation="4dp"
-            android:layout_margin="4dp"
-            >
+            app:cardElevation="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -39,8 +39,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        xmlns:bind="http://schemas.android.com/apk/res-auto"
+                    <ImageView xmlns:bind="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/imageView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -83,5 +82,42 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/btnGetDirection"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Direction" />
+
+        <LinearLayout
+            android:id="@+id/btnPlaySound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/btnPlayIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_play"
+                android:tint="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VOICE DIRECTION"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
     </LinearLayout>
 </layout>

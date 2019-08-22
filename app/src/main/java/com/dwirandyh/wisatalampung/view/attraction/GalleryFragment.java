@@ -91,6 +91,10 @@ public class GalleryFragment extends Fragment {
             public void onItemClick(Gallery gallery) {
                 Intent intent = new Intent(getActivity(), VRActivity.class);
                 intent.putExtra("galleryFileName", gallery.getThumbnail());
+                if (gallery.getOverviewFile().isEmpty()){
+                    gallery.setOverviewFile("");
+                }
+                intent.putExtra("overviewFileName", gallery.getOverviewFile());
                 startActivity(intent);
             }
         });
