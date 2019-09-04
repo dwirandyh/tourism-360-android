@@ -40,21 +40,21 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
                 android:src="@drawable/ic_siger" />
 
 
             <TextView
                 android:id="@+id/textView2"
                 style="@style/TextBanner"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="18dp"
-                android:text="Hy there\nWhere do you want to go?" />
+                android:layout_marginBottom="12dp"
+                android:text="Selamat Datang\nWisata Alam Bandar Lampung" />
 
 
             <LinearLayout

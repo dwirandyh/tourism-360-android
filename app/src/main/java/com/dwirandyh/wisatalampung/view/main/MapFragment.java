@@ -66,8 +66,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        rvAttractions = mapFragmentBinding.getRoot().findViewById(R.id.rvAttraction);
-        rvCategory = mapFragmentBinding.getRoot().findViewById(R.id.rvNearestAttraction);
+        rvAttractions = mapFragmentBinding.getRoot().findViewById(R.id.rvNearestAttraction);
+        rvCategory = mapFragmentBinding.getRoot().findViewById(R.id.rvCategory);
 
         return mapFragmentBinding.getRoot();
     }
@@ -93,7 +93,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void showOnCategoryRecyclerView() {
-//        rvCategory = mapFragmentBinding.rvCategory;
 
         CategoryMapAdapter categoryAdapter = new CategoryMapAdapter();
         categoryAdapter.setCategories(categories);
@@ -123,7 +122,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void showOnAttractionRecyclerView() {
-//        rvAttractions = mapFragmentBinding.rvNearestAttraction;
 
         AttractionMapAdapter attractionMapAdapter = new AttractionMapAdapter();
         attractionMapAdapter.setAttractions(attractions);
@@ -147,7 +145,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(centerPosition, 12f));
 
-        if (attractions.size() > 0){
+        if (attractions.size() > 0) {
             showAttractionMarker();
         }
     }
@@ -160,7 +158,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void addMarker(String title, LatLng position) {
-        if (mMap != null){
+        if (mMap != null) {
             mMap.addMarker(new MarkerOptions()
                     .position(position)
                     .title(title));
